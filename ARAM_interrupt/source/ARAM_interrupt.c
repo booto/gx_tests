@@ -73,6 +73,24 @@ int main(int argc, char **argv) {
 	float pc = 100.0*(AR_interrupt_time-AR_start_time)/(AR_end_time-AR_start_time);
 	printf("Interrupt occurs %f%% through the transfer\n", pc);
 	printf("Total xfer ticks: 0x%016llx\n", AR_end_time-AR_start_time);
+	
+	printf("\n");
+	AR_start_time = gettime();
+	AR_StartDMA(AR_ARAMTOMRAM, MEM_VIRTUAL_TO_PHYSICAL(ar_buffer), 0, ar_buffer_size);
+	
+	while(AR_GetDMAStatus() != 0) {
+	  /* spin */
+	}
+	AR_end_time = gettime();
+	
+	
+	printf("Before DMA ARAM->MRAM time: 0x%016llx\n", AR_start_time);
+	printf("AR_test_handler time:       0x%016llx\n", AR_interrupt_time);
+	printf("After DMA ARAM->MRAM time:  0x%016llx\n", AR_end_time);
+	
+	pc = 100.0*(AR_interrupt_time-AR_start_time)/(AR_end_time-AR_start_time);
+	printf("Interrupt occurs %f%% through the transfer\n", pc);
+	printf("Total xfer ticks: 0x%016llx\n", AR_end_time-AR_start_time);
 	printf("Press START to exit\n");
 	
 	
