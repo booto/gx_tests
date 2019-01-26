@@ -43,7 +43,7 @@ void * Initialise() {
 
 }
 
-const u32 ar_buffer_size = 10*1024*1024;
+const u32 ar_buffer_size = 16*1024*1024;
 
 int main(int argc, char **argv) {
 
